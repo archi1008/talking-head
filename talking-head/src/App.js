@@ -1,9 +1,8 @@
-import Index from "./main";
-
+import TalkingHeadComponent from "./main";
 function App() {
   return (
     <>
-     <Index/>
+     <TalkingHeadComponent/>
     </>
   );
 }
