@@ -23,6 +23,9 @@ function TalkingHeadComponent() {
    setHead(newHead);
 },[])
  
+useEffect(()=>{
+  console.log("messages",messages);
+},[messages])
 
   useEffect(() => {
     async function initializeTalkingHead() {
@@ -75,12 +78,13 @@ function TalkingHeadComponent() {
   const speakHandler = async () => {
     // Only speak if the avatar has been loaded successfully
     if (head && avatarLoaded) {
-      setMessages([...messages, { text: inputText, type: 'user' }]);
+      const newUserMessage = { text: inputText, type: 'user' };
+      setMessages(prevMessages => [...prevMessages, newUserMessage]);
       setInputText('');
       let reply;
       try {
         // Call OpenAI API to get a response
-        const apiKey = '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'; // Replace with your OpenAI API key
+        const apiKey = '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'; // Replace with your OpenAI API key
         const response = await fetch('https://api.openai.com/v1/chat/completions', {
           method: 'POST',
           headers: {
@@ -97,7 +101,8 @@ function TalkingHeadComponent() {
         console.log("response", data);
 
         reply = data.choices[0].message.content;
-        setMessages([...messages, { text: reply, type: 'bot' }]);
+        const newBotMessage = { text: reply, type: 'bot' };
+        setMessages(prevMessages => [...prevMessages, newBotMessage]);
 
       } catch (error) {
         console.error(error);
