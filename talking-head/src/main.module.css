@@ -1,0 +1,77 @@
+.avatarContainer{
+    position: absolute;
+    left: -40%;
+}
+
+.avatarButtonContainer{
+    position: relative;
+    left: 25%;
+    margin-top: 5%;
+    display: flex;
+    gap: 10px;
+}
+
+.avatarButton{
+    padding: 3%;
+    border-radius: 5%;
+    background-color: #0d6efd;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer !important;
+}
+.inputContainer{
+    position: absolute;
+    top: 70%;
+    left: 35%
+}
+.chatBox {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-top: 20px;
+    height: 600px; /* Set the desired height */
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    margin-left: 30%;
+    width: 90%;
+  }
+  
+  #controls {
+    position: relative;
+  }
+  
+  /* Styles for chat messages */
+  .chatMessage {
+    padding: 8px;
+    margin: 5px;
+    max-width: 70%; /* Adjust as needed */
+    border-radius: 8px;
+    align-self: last ;
+  }
+  
+  .userMessage {
+    background-color: #4CAF50; /* Green for user messages */
+    color: white;
+    align-self: flex-end;
+    margin-bottom: 5%;
+  }
+  
+  .botMessage {
+    background-color: #008CBA; /* Blue for bot messages */
+    color: white;
+    align-self: flex-start;
+    margin-bottom: 5%;
+  }
+  
+  /* Styles for input textbox and speak button */
+  .inputText {
+    width: calc(100% - 20px);
+    margin-right: 10px;
+    margin-top: 75%;
+  }
+  
+  .speakButton {
+    width: 100px;
+    margin-top: 75%;
+  }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TalkingHead } from './modules/talkinghead.mjs';
+import style from './main.module.css';
 
 function TalkingHeadComponent() {
   const url1 ='https://models.readyplayer.me/65dc239d1699818a1b65b7f2.glb?morphTargets=ARKit,Oculus+Visemes,mouthOpen,mouthSmile,eyesClosed,eyesLookUp,eyesLookDown&textureSizeLimit=1024&textureFormat=png';
@@ -79,7 +80,7 @@ function TalkingHeadComponent() {
       let reply;
       try {
         // Call OpenAI API to get a response
-        const apiKey = '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'; // Replace with your OpenAI API key
+        const apiKey = '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'; // Replace with your OpenAI API key
         const response = await fetch('https://api.openai.com/v1/chat/completions', {
           method: 'POST',
           headers: {
@@ -114,37 +115,48 @@ function TalkingHeadComponent() {
 
   return (
     <div>
-      <div id="avatar" style={{ height: "500px", width: "500px", right: "12px" }}>
+    <div className={style.avatarContainer}>
+    <div id="avatar" style={{ height: "500px", width: "500px", right: "12px" }}>
         {loadingAvatar && <div>Loading Avatar...</div>}
       </div>
-      <div id="controls">
-        {messages.map((message, index) => (
-          <div key={index} style={{ position: "absolute", left: "90%", background: "white", color: "black", marginTop: "100px", padding: '8px', textAlign: message.type === 'user' ? 'right' : 'left' }}>
-            {message.text}
-          </div>
-        ))}
+      <div className={style.avatarButtonContainer}>
+          <button className={style.avatarButton} onClick={()=>{setAvatar(1)}}>Avatar1</button>
+          <button className={style.avatarButton} onClick={()=>{setAvatar(2)}}>Avatar2</button>
+          <button className={style.avatarButton} onClick={()=>{setAvatar(3)}}>Avatar3</button>
+        </div>
+        <div className={style.inputContainer}>
         <input
           style={{ marginTop: "200px" }}
           type="file"
           accept=".glb"
           onChange={handleFileChange}
         />
-        <input
-          id="text"
-          type="text"
-          value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
-        />
-        <input
-          id="speak"
-          type="button"
-          value="Speak"
-          onClick={speakHandler}
-        />
-        <div>
-          <button onClick={()=>{setAvatar(1)}}>Avatar1</button>
-          <button onClick={()=>{setAvatar(2)}}>Avatar2</button>
-          <button onClick={()=>{setAvatar(3)}}>Avatar3</button>
+        </div>
+    </div>
+    <div className={style.chatBox}>
+        <div id="controls" className={style.controls}>
+          {messages.map((message, index) => (
+            <div
+              key={index}
+              className={`${style.chatMessage} ${message.type === 'user' ? style.userMessage : style.botMessage}`}
+            >
+              {message.text}
+            </div>
+          ))}
+          <input
+            id="text"
+            className={style.inputText}
+            type="text"
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
+          />
+          <input
+            id="speak"
+            className={style.speakButton}
+            type="button"
+            value="Speak"
+            onClick={speakHandler}
+          />
         </div>
       </div>
     </div>
