@@ -8,6 +8,7 @@ import Stats from 'three/addons/libs/stats.module.js';
 // Lip-sync implementations for different languages
 import { LipsyncFi } from './lipsync-fi.mjs';
 import { LipsyncEn } from './lipsync-en.mjs';
+import { LipsyncHi } from './lipsync-hi.mjs';
 
 /**
 * @class Talking Head
@@ -84,12 +85,12 @@ class TalkingHead {
       ttsApikey: null,
       ttsTrimStart: 0,
       ttsTrimEnd: 400,
-      ttsLang: "fi-FI",
-      ttsVoice: "fi-FI-Standard-A",
+      ttsLang: "hi-IN",
+      ttsVoice: "hi-IN-Wavenet-D",
       ttsRate: 0.95,
       ttsPitch: 0,
       ttsVolume: 0,
-      lipsyncLang: 'fi',
+      lipsyncLang: 'en',
       pcmSampleRate: 22050,
       modelRoot: "Armature",
       modelPixelRatio: 1,
@@ -564,7 +565,8 @@ class TalkingHead {
     // Lip-sync extensions
     this.lipsync = {
       'fi': new LipsyncFi(),
-      'en': new LipsyncEn()
+      'en': new LipsyncEn(),
+      'hi': new LipsyncHi()
     };
     this.visemeNames = [
       'aa', 'E', 'I', 'O', 'U', 'PP', 'SS', 'TH', 'DD', 'FF', 'kk',

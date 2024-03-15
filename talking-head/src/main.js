@@ -40,8 +40,8 @@ useEffect(()=>{
             url: fileURL,
             body: 'F',
             avatarMood: 'neutral',
-            ttsLang: "en-GB",
-            ttsVoice: "en-GB-Standard-A",
+            ttsLang: "hi-IN",
+            ttsVoice: "hi-IN-Wavenet-D",
             lipsyncLang: 'en'
           });
         } 
@@ -54,8 +54,8 @@ useEffect(()=>{
             url: myUrl,
             body: avatar ===2 ? 'M' : 'F',
             avatarMood: 'neutral',
-            ttsLang: "en-GB",
-            ttsVoice: "en-GB-Standard-A",
+            ttsLang: "hi-IN",
+            ttsVoice: "hi-IN-Wavenet-D",
             lipsyncLang: 'en'
           });
         }
@@ -69,6 +69,21 @@ useEffect(()=>{
     initializeTalkingHead();
   }, [head, avatarFile,avatar]);
 
+  const handleAvatar1Click = () => {
+    console.log("Avatar 1 clicked");
+    setAvatar(1);
+  };
+
+  const handleAvatar2Click = () => {
+    console.log("Avatar 2 clicked");
+    setAvatar(2);
+  };
+
+  const handleAvatar3Click = () => {
+    console.log("Avatar 3 clicked");
+    setAvatar(3);
+  };
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setAvatarFile(file);
@@ -76,46 +91,51 @@ useEffect(()=>{
   };
 
   const speakHandler = async () => {
-    // Only speak if the avatar has been loaded successfully
-    if (head && avatarLoaded) {
-      const newUserMessage = { text: inputText, type: 'user' };
+    const newUserMessage = { text: inputText, type: 'user' };
       setMessages(prevMessages => [...prevMessages, newUserMessage]);
-      setInputText('');
-      let reply;
-      try {
-        // Call OpenAI API to get a response
-        const apiKey = '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'; // Replace with your OpenAI API key
-        const response = await fetch('https://api.openai.com/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiKey}`,
-          },
-          body: JSON.stringify({
-            model: "gpt-3.5-turbo",
-            messages: [{ "role": "system", "content": inputText }]
-          }),
-        });
+   
+    head.speakText(inputText);
+    // setInputText('');
+    // Only speak if the avatar has been loaded successfully
+    // if (head && avatarLoaded) {
+    //   const newUserMessage = { text: inputText, type: 'user' };
+    //   setMessages(prevMessages => [...prevMessages, newUserMessage]);
+    //   setInputText('');
+    //   let reply;
+    //   try {
+    //     // Call OpenAI API to get a response
+    //     const apiKey = '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'; // Replace with your OpenAI API key
+    //     const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //         'Authorization': `Bearer ${apiKey}`,
+    //       },
+    //       body: JSON.stringify({
+    //         model: "gpt-3.5-turbo",
+    //         messages: [{ "role": "system", "content": inputText }]
+    //       }),
+    //     });
 
-        const data = await response.json();
-        console.log("response", data);
+    //     const data = await response.json();
+    //     console.log("response", data);
 
-        reply = data.choices[0].message.content;
-        const newBotMessage = { text: reply, type: 'bot' };
-        setMessages(prevMessages => [...prevMessages, newBotMessage]);
+    //     reply = data.choices[0].message.content;
+    //     const newBotMessage = { text: reply, type: 'bot' };
+    //     setMessages(prevMessages => [...prevMessages, newBotMessage]);
 
-      } catch (error) {
-        console.error(error);
-        // Handle error gracefully
-      }
-      try {
-        head.speakText(reply);
-      } catch (error) {
-        console.log(error);
-      }
-    } else {
-      console.log("Avatar is still loading...");
-    }
+    //   } catch (error) {
+    //     console.error(error);
+    //     // Handle error gracefully
+    //   }
+    //   try {
+    //     head.speakText(inputText);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // } else {
+    //   console.log("Avatar is still loading...");
+    // }
   };
 
   return (
@@ -125,9 +145,9 @@ useEffect(()=>{
         {loadingAvatar && <div>Loading Avatar...</div>}
       </div>
       <div className={style.avatarButtonContainer}>
-          <button className={style.avatarButton} onClick={()=>{setAvatar(1)}}>Avatar1</button>
-          <button className={style.avatarButton} onClick={()=>{setAvatar(2)}}>Avatar2</button>
-          <button className={style.avatarButton} onClick={()=>{setAvatar(3)}}>Avatar3</button>
+          <button className={style.avatarButton} onClick={handleAvatar1Click}>Avatar1</button>
+          <button className={style.avatarButton} onClick={handleAvatar2Click}>Avatar2</button>
+          <button className={style.avatarButton} onClick={handleAvatar3Click}>Avatar3</button>
         </div>
         <div className={style.inputContainer}>
         <input
