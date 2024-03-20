@@ -1886,7 +1886,7 @@ class TalkingHead {
   * @param {subtitlesfn} [onsubtitles=null] Callback when a subtitle is written
   * @param {number[][]} [excludes=null] Array of [start, end] index arrays to not speak
   */
-    
+      
   speakText(s, opt = null, onsubtitles = null, excludes = null ) {
     console.log("this.speakQueueu",this.speechQueue)
     opt = opt || {};
