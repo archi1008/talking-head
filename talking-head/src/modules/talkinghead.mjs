@@ -86,7 +86,7 @@ class TalkingHead {
       ttsTrimStart: 0,
       ttsTrimEnd: 400,
       ttsLang: "hi-IN",
-      ttsVoice: "hi-IN-Wavenet-D",
+      ttsVoice: "hi-IN-Neural2-A",
       ttsRate: 0.95,
       ttsPitch: 0,
       ttsVolume: 0,
@@ -1886,7 +1886,9 @@ class TalkingHead {
   * @param {subtitlesfn} [onsubtitles=null] Callback when a subtitle is written
   * @param {number[][]} [excludes=null] Array of [start, end] index arrays to not speak
   */
+    
   speakText(s, opt = null, onsubtitles = null, excludes = null ) {
+    console.log("this.speakQueueu",this.speechQueue)
     opt = opt || {};
 
     // Classifiers
@@ -2327,16 +2329,31 @@ class TalkingHead {
 
           });
           ssml += "</speak>";
-
-
           const o = {
             method: "POST",
             headers: {
               "Content-Type": "application/json; charset=utf-8"
             },
-            body: JSON.stringify({
+            body:
+            //  this.avatar.ttsLang === 'hi-IN' ? JSON.stringify({
+            //   "input": {
+            //     "ssml": line.text[0].word
+            //   },
+            //   "voice": {
+            //     "languageCode": line.lang || this.avatar.ttsLang || this.opt.ttsLang,
+            //     "name": line.voice || this.avatar.ttsVoice || this.opt.ttsVoice
+            //   },
+            //   "audioConfig": {
+            //     "audioEncoding": this.ttsAudioEncoding,
+            //     "speakingRate": (line.rate || this.avatar.ttsRate || this.opt.ttsRate) + this.mood.speech.deltaRate,
+            //     "pitch": (line.pitch || this.avatar.ttsPitch || this.opt.ttsPitch) + this.mood.speech.deltaPitch,
+            //     "volumeGainDb": (line.volume || this.avatar.ttsVolume || this.opt.ttsVolume) + this.mood.speech.deltaVolume
+            //   },
+            //   // "enableTimePointing": [ 1 ] // Timepoint information for mark tags
+            // }) : 
+            JSON.stringify({
               "input": {
-                "ssml": ssml
+                "ssml": this.avatar.ttsLang === 'hi-IN' ? " हिंदी में ताज़ा समाचार, ब्रेकिंग न्यूज़, वीडियो, ऑडियो और फ़ीचर" :ssml
               },
               "voice": {
                 "languageCode": line.lang || this.avatar.ttsLang || this.opt.ttsLang,
@@ -2351,7 +2368,7 @@ class TalkingHead {
               "enableTimePointing": [ 1 ] // Timepoint information for mark tags
             })
           };
-
+        console.log("o",o);
           // JSON Web Token
           if ( this.opt.jwtGet && typeof this.opt.jwtGet === "function" ) {
             o.headers["Authorization"] = "Bearer " + await this.opt.jwtGet();
@@ -2359,6 +2376,8 @@ class TalkingHead {
 
           const res = await fetch( this.opt.ttsEndpoint + (this.opt.ttsApikey ? "?key=" + this.opt.ttsApikey : ''), o);
           const data = await res.json();
+          console.log("res",res);
+          console.log("data",data);
 
           if ( res.status === 200 && data && data.audioContent ) {
 

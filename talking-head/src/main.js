@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { TalkingHead } from './modules/talkinghead.mjs';
 import style from './main.module.css';
+// ttsLang: "en-GB",
+// ttsVoice: "en-GB-Standard-A",
+
+// ttsLang: "hi-IN",
+// ttsVoice: "hi-IN-Wavenet-D",
+
 
 function TalkingHeadComponent() {
   const url1 ='https://models.readyplayer.me/65dc239d1699818a1b65b7f2.glb?morphTargets=ARKit,Oculus+Visemes,mouthOpen,mouthSmile,eyesClosed,eyesLookUp,eyesLookDown&textureSizeLimit=1024&textureFormat=png';
@@ -42,7 +48,7 @@ useEffect(()=>{
             avatarMood: 'neutral',
             ttsLang: "hi-IN",
             ttsVoice: "hi-IN-Wavenet-D",
-            lipsyncLang: 'en'
+            lipsyncLang: 'hi'
           });
         } 
         else {
@@ -56,7 +62,7 @@ useEffect(()=>{
             avatarMood: 'neutral',
             ttsLang: "hi-IN",
             ttsVoice: "hi-IN-Wavenet-D",
-            lipsyncLang: 'en'
+            lipsyncLang: 'hi'
           });
         }
         setAvatarLoaded(true); // Set avatar loaded indicator to true
