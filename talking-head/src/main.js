@@ -19,6 +19,7 @@ function TalkingHeadComponent() {
   const [avatarLoaded, setAvatarLoaded] = useState(false);
   const [loadingAvatar, setLoadingAvatar] = useState(false);
   const [avatar,setAvatar] = useState(3);
+  const [selectedLang, setSelectedLang] = useState('english');
 
   useEffect(()=>{ const nodeAvatar = document.getElementById('avatar');
   const newHead = new TalkingHead(nodeAvatar, {
@@ -48,7 +49,7 @@ useEffect(()=>{
             avatarMood: 'neutral',
             ttsLang: "hi-IN",
             ttsVoice: "hi-IN-Wavenet-D",
-            lipsyncLang: 'hi'
+            lipsyncLang: 'en'
           });
         } 
         else {
@@ -61,8 +62,8 @@ useEffect(()=>{
             body: avatar ===2 ? 'M' : 'F',
             avatarMood: 'neutral',
             ttsLang: "hi-IN",
-            ttsVoice: "hi-IN-Wavenet-D",
-            lipsyncLang: 'hi'
+ttsVoice: "hi-IN-Wavenet-D",
+            lipsyncLang: 'en'
           });
         }
         setAvatarLoaded(true); // Set avatar loaded indicator to true
@@ -97,51 +98,126 @@ useEffect(()=>{
   };
 
   const speakHandler = async () => {
-    const newUserMessage = { text: inputText, type: 'user' };
-      setMessages(prevMessages => [...prevMessages, newUserMessage]);
    
-    head.speakText(inputText);
-    // setInputText('');
-    // Only speak if the avatar has been loaded successfully
-    // if (head && avatarLoaded) {
-    //   const newUserMessage = { text: inputText, type: 'user' };
-    //   setMessages(prevMessages => [...prevMessages, newUserMessage]);
-    //   setInputText('');
-    //   let reply;
-    //   try {
-    //     // Call OpenAI API to get a response
-    //     const apiKey = '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'; // Replace with your OpenAI API key
-    //     const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //         'Authorization': `Bearer ${apiKey}`,
-    //       },
-    //       body: JSON.stringify({
-    //         model: "gpt-3.5-turbo",
-    //         messages: [{ "role": "system", "content": inputText }]
-    //       }),
-    //     });
-
-    //     const data = await response.json();
-    //     console.log("response", data);
-
-    //     reply = data.choices[0].message.content;
-    //     const newBotMessage = { text: reply, type: 'bot' };
-    //     setMessages(prevMessages => [...prevMessages, newBotMessage]);
-
-    //   } catch (error) {
-    //     console.error(error);
-    //     // Handle error gracefully
-    //   }
-    //   try {
-    //     head.speakText(inputText);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // } else {
-    //   console.log("Avatar is still loading...");
-    // }
+    setInputText('');
+    if (head && avatarLoaded) {
+      const newUserMessage = { text: inputText, type: 'user' };
+      setMessages(prevMessages => [...prevMessages, newUserMessage]);
+      setInputText('');
+      let reply;
+      let reply1;
+      let reply2;
+      if(selectedLang==='hindi'){
+        try {
+          // Call OpenAI API to get a response
+          const apiKey = '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'; // mm
+          const response = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${apiKey}`,
+            },
+            body: JSON.stringify({
+              model: "gpt-3.5-turbo",
+              messages: [{ "role": "system", "content": ` convert this text : ${inputText} into hinglish` }]
+            }),
+          });
+  
+          const data = await response.json();
+          console.log("reply1",data.choices[0].message.content );
+  
+          reply1 = data.choices[0].message.content; 
+        } catch (error) {
+          console.log("error during reply1");
+          console.error(error);
+        }
+        try {
+          const apiKey = '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';
+          const response = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${apiKey}`,
+            },
+            body: JSON.stringify({
+              model: "gpt-3.5-turbo",
+              messages: [{ "role": "system", "content": reply1 }]
+            }),
+          });
+  
+          const data = await response.json();
+          console.log("reply2", data.choices[0].message.content);
+  
+          reply2 = data.choices[0].message.content;
+        } catch (error) {
+          console.log("error during reply2");
+          console.error(error);
+          // Handle error gracefully
+        }
+        try {
+          // Call OpenAI API to get a response
+          const apiKey = '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'; // mm
+          const response = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${apiKey}`,
+            },
+            body: JSON.stringify({
+              model: "gpt-3.5-turbo",
+              messages: [{ "role": "system", "content": ` convert this text : ${reply2} into hindi` }]
+            }),
+          });
+  
+          const data = await response.json();
+          console.log("reply3",data.choices[0].message.content );
+  
+          reply = data.choices[0].message.content; 
+          const newBotMessage = { text: reply, type: 'bot' };
+          setMessages(prevMessages => [...prevMessages, newBotMessage]);
+        } catch (error) {
+          console.log("error during reply3");
+          console.error(error);
+        }
+      }
+      else{
+        try {
+          // Call OpenAI API to get a response
+          const apiKey = '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'; // mm
+          const response = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${apiKey}`,
+            },
+            body: JSON.stringify({
+              model: "gpt-3.5-turbo",
+              messages: [{ "role": "system", "content": `${inputText}` }]
+            }),
+          });
+  
+          const data = await response.json();
+          console.log("response", data);
+  
+          reply = data.choices[0].message.content;
+          const newBotMessage = { text: reply, type: 'bot' };
+          setMessages(prevMessages => [...prevMessages, newBotMessage]);
+  
+        } catch (error) {
+          console.error(error);
+          // Handle error gracefully
+        }
+      }
+      
+      try {
+        console.log("final reply",reply);
+        selectedLang === 'hindi' ? head.speakText(reply2) :head.speakText(reply) ;
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      console.log("Avatar is still loading...");
+    }
   };
 
   return (
@@ -155,6 +231,10 @@ useEffect(()=>{
           <button className={style.avatarButton} onClick={handleAvatar2Click}>Avatar2</button>
           <button className={style.avatarButton} onClick={handleAvatar3Click}>Avatar3</button>
         </div>
+        <div className={style.avatarButtonContainer}>
+          <button className={style.avatarButton} onClick={()=>{setSelectedLang("hindi")}}>hindi</button>
+          <button className={style.avatarButton} onClick={()=>{setSelectedLang("english")}}>english</button>
+        </div>
         <div className={style.inputContainer}>
         <input
           style={{ marginTop: "200px" }}
@@ -163,7 +243,9 @@ useEffect(()=>{
           onChange={handleFileChange}
         />
         </div>
+        
     </div>
+    
     <div className={style.chatBox}>
         <div id="controls" className={style.controls}>
           {messages.map((message, index) => (

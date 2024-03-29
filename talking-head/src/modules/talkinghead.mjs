@@ -86,7 +86,7 @@ class TalkingHead {
       ttsTrimStart: 0,
       ttsTrimEnd: 400,
       ttsLang: "hi-IN",
-      ttsVoice: "hi-IN-Neural2-A",
+ttsVoice: "hi-IN-Wavenet-D",
       ttsRate: 0.95,
       ttsPitch: 0,
       ttsVolume: 0,
@@ -1888,7 +1888,6 @@ class TalkingHead {
   */
       
   speakText(s, opt = null, onsubtitles = null, excludes = null ) {
-    console.log("this.speakQueueu",this.speechQueue)
     opt = opt || {};
 
     // Classifiers
@@ -2353,7 +2352,7 @@ class TalkingHead {
             // }) : 
             JSON.stringify({
               "input": {
-                "ssml": this.avatar.ttsLang === 'hi-IN' ? " हिंदी में ताज़ा समाचार, ब्रेकिंग न्यूज़, वीडियो, ऑडियो और फ़ीचर" :ssml
+                "ssml": ssml
               },
               "voice": {
                 "languageCode": line.lang || this.avatar.ttsLang || this.opt.ttsLang,
