@@ -1,40 +1,60 @@
+.container-fluid {
+  width: 100%;
+}
 .avatarContainer{
-    position: absolute;
-    left: -40%;
+    /* position: absolute; */
+    /* width: %; */
+    width: 50%;
+    /* left: -40%; */
 }
 
 .avatarButtonContainer{
-    position: relative;
-    left: 25%;
-    margin-top: 5%;
+  /* width: 500px;
+    margin-left: 20px;
+    margin-top: 10px;
     display: flex;
-    gap: 10px;
+    align-items: center; */
+    width: 200%;
+  display: flex;
+  justify-content: center;
+
 }
 
 .avatarButton{
-    padding: 3%;
-    border-radius: 5%;
-    background-color: #0d6efd;
+  margin: 10px;
+  padding: 15px;
+    border-radius:10px;
+    background-color: #0e6cfa6c;
     border: none;
     color: white;
     font-size: 1rem;
-    cursor: pointer !important;
+    cursor: pointer;
+}
+.avatarButtonSel{
+  margin: 10px;
+  padding: 15px;
+    border-radius:10px;
+  background-color: #0d6efd;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
 }
 .inputContainer{
-    position: absolute;
-    top: 70%;
-    left: 35%
+  width: 240%;
+  display: flex;
+  justify-content: center;
 }
 .chatBox {
     display: flex;
     flex-direction: column;
     position: relative;
     margin-top: 20px;
-    height: 600px; /* Set the desired height */
+    height: 610px; /* Set the desired height */
     overflow-y: auto;
     border: 1px solid #ccc;
-    margin-left: 30%;
-    width: 90%;
+    /* margin-left: 30%; */
+    width: 95%;
   }
   
   #controls {
@@ -69,13 +89,20 @@
   
   /* Styles for input textbox and speak button */
   .inputText {
+    /* position: absolute;
+    bottom: 0;
+    left: 0; */
     width: calc(100% - 20px);
     margin-right: 10px;
-    margin-top: 75%;
+    margin-top: 65%;
     position: sticky;
   }
   
   .speakButton {
+    /* position: absolute;
+    bottom: 0;
+    right: 0; */
     width: 100px;
-    margin-top: 75%;
+    margin-top: 65%;
+    position: sticky;
   }
