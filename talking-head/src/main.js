@@ -132,7 +132,7 @@ ttsVoice: "hi-IN-Wavenet-D",
           console.error(error);
         }
         try {
-          const apiKey = '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';
+          const apiKey = 'add your open api key';
           const response = await fetch('https://api.openai.com/v1/chat/completions', {
             method: 'POST',
             headers: {
@@ -156,7 +156,7 @@ ttsVoice: "hi-IN-Wavenet-D",
         }
         try {
           // Call OpenAI API to get a response
-          const apiKey = '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'; // mm
+          const apiKey = 'add your open api key'; // mm
           const response = await fetch('https://api.openai.com/v1/chat/completions', {
             method: 'POST',
             headers: {
@@ -183,7 +183,7 @@ ttsVoice: "hi-IN-Wavenet-D",
       else{
         try {
           // Call OpenAI API to get a response
-          const apiKey = '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'; // mm
+          const apiKey = 'open api key'; // mm
           const response = await fetch('https://api.openai.com/v1/chat/completions', {
             method: 'POST',
             headers: {
