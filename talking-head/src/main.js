@@ -110,7 +110,7 @@ ttsVoice: "hi-IN-Wavenet-D",
       if(selectedLang==='hindi'){
         try {
           // Call OpenAI API to get a response
-          const apiKey = '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'; // mm
+          const apiKey = 'add your open api key'; // mm
           const response = await fetch('https://api.openai.com/v1/chat/completions', {
             method: 'POST',
             headers: {
